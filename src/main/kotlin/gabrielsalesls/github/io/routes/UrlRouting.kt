@@ -12,7 +12,7 @@ import io.ktor.server.routing.*
 fun Application.configureRouting(
     service: UrlService
 ) {
-    routing{
+    routing {
         post("/") {
             val urlRequest = call.receive<UrlRequest>()
 
@@ -22,7 +22,13 @@ fun Application.configureRouting(
                 status = HttpStatusCode.Created,
                 message = response
             )
+        }
+        get("/{code}") {
+            val urlCode = call.parameters["code"] ?: throw IllegalArgumentException("Code cannot be null")
 
+            val urlToRedirect = service.getOriginalUrl(urlCode)
+
+            call.respondRedirect(urlToRedirect)
         }
     }
 

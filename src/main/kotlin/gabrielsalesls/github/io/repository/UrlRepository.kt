@@ -5,6 +5,7 @@ import gabrielsalesls.github.io.model.entity.Url
 import gabrielsalesls.github.io.model.entity.UrlTable
 import gabrielsalesls.github.io.model.entity.UrlTable.toUrl
 import org.jetbrains.exposed.sql.insert
+import org.jetbrains.exposed.sql.select
 
 class UrlRepository {
 
@@ -15,6 +16,15 @@ class UrlRepository {
                 it[urlCode] = url.urlCode
             }
         }
-        return urlSaved.resultedValues?.map { it.toUrl() } ?: throw Exception("Erro ao salvar URL") // criar exception propria
+        return urlSaved.resultedValues?.map { it.toUrl() }
+            ?: throw Exception("Erro ao salvar URL") // criar exception propria
+    }
+
+    suspend fun findByUrlCode(urlCode: String): Url {
+        val originalUrl = dbQuery {
+            UrlTable.select { UrlTable.urlCode eq urlCode }.firstOrNull()
+        } ?: throw NoSuchElementException("Codigo invalido")
+
+        return originalUrl.toUrl()
     }
 }

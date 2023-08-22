@@ -16,6 +16,16 @@ class UrlService(val repository: UrlRepository) {
         val response = repository.save(urlModel)
         return response.first()
     }
+
+    suspend fun getOriginalUrl(urlCode: String): String {
+        val url = repository.findByUrlCode(urlCode).originalUrl
+
+        return if (!url.startsWith("https://")) {
+            "https://$url"
+        } else {
+            url
+        }
+    }
 }
 
 private fun generateUrlCode() = UUID.randomUUID().toString().substring(0, 6)
