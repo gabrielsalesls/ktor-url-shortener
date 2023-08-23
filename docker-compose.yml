@@ -1,0 +1,32 @@
+version: '2'
+
+services:
+  app:
+    build:
+      context: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      pg_password: 12345
+      pg_username: postgres
+      pg_url: jdbc:postgresql://db:5432/urldb
+
+  db:
+    image: postgres:13-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 12345
+      POSTGRES_DB: urldb
+  ui:
+    image: sosedoff/pgweb:0.13.1
+    restart: always
+    ports:
+      - "8079:8081"
+    environment:
+      - PGWEB_DATABASE_URL=postgresql://postgres:12345@db:5432/urldb?sslmode=disable
+    depends_on:
+      - db
