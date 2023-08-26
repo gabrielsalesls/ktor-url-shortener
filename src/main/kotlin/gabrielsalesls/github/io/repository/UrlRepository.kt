@@ -23,7 +23,7 @@ class UrlRepository {
     suspend fun findByUrlCode(urlCode: String): Url {
         val originalUrl = dbQuery {
             UrlTable.select { UrlTable.urlCode eq urlCode }.firstOrNull()
-        } ?: throw NoSuchElementException("Codigo invalido")
+        } ?: throw NoSuchElementException("Codigo não encontrado")
 
         return originalUrl.toUrl()
     }

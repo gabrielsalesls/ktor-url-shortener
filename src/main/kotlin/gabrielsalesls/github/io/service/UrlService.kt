@@ -9,7 +9,6 @@ class UrlService(val repository: UrlRepository) {
     suspend fun save(url: String): Url {
 
         val urlCode = generateUrlCode()
-        //TODO: Verificar se esse codigo já esta presente no banco de dados
 
         val urlModel = Url(url, urlCode)
 
