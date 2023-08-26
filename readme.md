@@ -13,7 +13,7 @@ Este projeto foi desenvolvido com o objetivo de aprender a respeito do framework
 - H2
 - Docker
 
-## How to use
+## Rodando localmente
 
 1. Clone o repositorio.
 
@@ -28,5 +28,9 @@ Este projeto foi desenvolvido com o objetivo de aprender a respeito do framework
     ```
 
 ## End-Points
-- Encurte o link. A Url a ser encurtada é enviada no body:
-```curl --request POST --url http://localhost:8080/ --header 'Content-Type: application/json' --data '{"name": "google.com"}'```
+- **POST**: Envia uma URL no body para ser encurtada:
+```curl --request POST --url http://localhost:8080/ --header 'Content-Type: application/json' --data '{"name": "google.com"}'``` 
+
+
+- **GET**: Redireciona para a URL original:
+  ```curl --request GET --url http://localhost:8080/6c344a```
