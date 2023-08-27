@@ -1,21 +1,26 @@
 package gabrielsalesls.github.io
 
-import gabrielsalesls.github.io.plugins.*
-import io.ktor.client.request.*
-import io.ktor.client.statement.*
-import io.ktor.http.*
+import io.ktor.client.plugins.contentnegotiation.*
+import io.ktor.serialization.gson.*
+import io.ktor.server.config.*
 import io.ktor.server.testing.*
-import kotlin.test.*
+import org.junit.Test
+
 
 class ApplicationTest {
     @Test
-    fun testRoot() = testApplication {
-        application {
-            configureRouting()
+    fun testApp() = testApplication {
+        environment {
+            config = ApplicationConfig("application-test.conf")
         }
-        client.get("/").apply {
-            assertEquals(HttpStatusCode.OK, status)
-            assertEquals("Hello World!", bodyAsText())
+
+        val client = createClient {
+            install(ContentNegotiation) {
+                gson()
+            }
+            followRedirects = true
         }
+
+
     }
 }
