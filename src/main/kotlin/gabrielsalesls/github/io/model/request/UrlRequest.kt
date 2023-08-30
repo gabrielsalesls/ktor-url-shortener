@@ -4,5 +4,5 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class UrlRequest(
-    val name: String
+    val url: String
 )

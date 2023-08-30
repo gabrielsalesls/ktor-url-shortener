@@ -16,7 +16,7 @@ fun Application.configureRouting(
         post("/") {
             val urlRequest = call.receive<UrlRequest>()
 
-            val response = service.save(urlRequest.name).toResponse()
+            val response = service.save(urlRequest.url).toResponse()
 
             return@post call.respond(
                 status = HttpStatusCode.Created,

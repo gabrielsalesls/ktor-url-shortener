@@ -29,7 +29,7 @@ Este projeto foi desenvolvido com o objetivo de aprender a respeito do framework
 
 ## End-Points
 - **POST**: Envia uma URL no body para ser encurtada:
-```curl --request POST --url http://localhost:8080/ --header 'Content-Type: application/json' --data '{"name": "google.com"}'``` 
+```curl --request POST --url http://localhost:8080/ --header 'Content-Type: application/json' --data '{"url": "google.com"}'``` 
 
 
 - **GET**: Redireciona para a URL original:
